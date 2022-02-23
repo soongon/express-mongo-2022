@@ -26,7 +26,10 @@ app.get('/employees', (req, res) => {
 // 직원 상세보기
 app.get('/employees/:empId', (req, res) => {
   const empId = req.params.empId;
-  res.send(empId);
+  Employee.findOne({_id: parseInt(empId)}).exec((err, doc) => {
+    if (err) { console.log('error.. : ' + err)};
+    res.json(doc);
+  })
 });
 // 직원 등록
 app.post('/employees', (req, res) => {
